@@ -1,0 +1,35 @@
+# File: deployments/docker-compose.yaml
+services:
+  proxy:
+    # Use the parent directory (..) as the build context
+    build: ..
+    ports:
+      - "8080:8080" # Main proxy port
+      - "9090:9090" # Admin/metrics port
+    volumes:
+      # Mount the config file from the parent directory's configs folder
+      - ../configs/config.yaml:/app/config.yaml
+
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    ports:
+      - "9091:9090" # Expose Prometheus on port 9091
+    volumes:
+      # Mount the prometheus config from the parent directory
+      - ../prometheus.yaml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - proxy
+
+  grafana:
+    image: grafana/grafana-oss:10.1.1
+    ports:
+      - "3000:3000" # Expose Grafana on port 3000
+    depends_on:
+      - prometheus
+    
+  redis:
+      image: "redis:7-alpine"
+      ports:
+        - "6379:6379"

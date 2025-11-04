@@ -1,0 +1,28 @@
+# File: configs/config.yaml
+
+# Settings for the HTTP server itself
+server:
+  port: "8080"
+
+# Settings for the reverse proxy behavior
+proxy:
+  # The backend server to forward requests to
+  target: "https://httpbin.org"
+
+# Settings for the caching layer
+cache:
+  # Type can be "lru" or "redis"
+  cache_type: "redis"
+  
+  lru:
+    # The maximum number of items to store in the LRU cache
+    size: 100
+  
+  # The default time-to-live (TTL) for a cache entry, in seconds
+  default_ttl_seconds: 60
+
+# Settings for Redis (indented correctly)
+redis:
+  address: "redis:6379" # 'redis' is the service name in docker-compose
+  password: "" # No password for our local dev instance
+  db: 0

@@ -1,0 +1,8 @@
+# File: prometheus.yaml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'caching-proxy'
+    static_configs:
+      - targets: ['proxy:9090'] # 'proxy' is the service name in docker-compose
