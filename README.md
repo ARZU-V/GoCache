@@ -2,7 +2,6 @@
 
 A high-performance, production-ready HTTP reverse proxy with a pluggable caching layer, built in Go. This project is designed to demonstrate best practices in system design, concurrency, testing, and observability.
 
-[Image of a Grafana dashboard showing cache metrics]
 
 ## ✨ Features
 
